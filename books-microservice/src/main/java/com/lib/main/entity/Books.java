@@ -11,12 +11,12 @@ import jakarta.persistence.*;
 public class Books {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer bookId;
     private String bookName;
     private String bookAuthor;
     private String publisher;
-	private Integer main_genere_id;
+    private Integer main_genere_id;
     private String bookGenre;
     private Integer noOfCopies;
     private Integer shelfId;
