@@ -11,36 +11,57 @@ import jakarta.persistence.*;
 public class Books {
 	
 	@Id
-//     @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+	private String title;
     private Integer bookId;
     private String bookName;
     private String bookAuthor;
     private String publisher;
-    private Integer main_genere_id;
+	private Integer main_genre_id;
     private String bookGenre;
     private Integer noOfCopies;
     private Integer shelfId;
+    private Integer publication_year;
+    private Integer price;
+    private Integer popularity;
+    private Integer available_copies;
     
     
     
-    
-    
-    
-    
+    public Books() {
+    	
+    }
 
-	public Books(Integer bookId, String bookName, String bookAuthor, String publisher, Integer main_genere_id,
-			String bookGenre, Integer noOfCopies, Integer shelfId) {
+	
+	
+	public Books(String title, Integer bookId, String bookName, String bookAuthor, String publisher,
+			Integer main_genre_id, String bookGenre, Integer noOfCopies, Integer shelfId, Integer publication_year,
+			Integer price, Integer popularity, Integer available_copies) {
 		super();
+		this.title = title;
 		this.bookId = bookId;
 		this.bookName = bookName;
 		this.bookAuthor = bookAuthor;
 		this.publisher = publisher;
-		this.main_genere_id = main_genere_id;
+		this.main_genre_id = main_genre_id;
 		this.bookGenre = bookGenre;
 		this.noOfCopies = noOfCopies;
 		this.shelfId = shelfId;
+		this.publication_year = publication_year;
+		this.price = price;
+		this.popularity = popularity;
+		this.available_copies = available_copies;
 	}
 
+
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public Integer getBookId() {
 		return bookId;
@@ -100,13 +121,13 @@ public class Books {
 		this.publisher = publisher;
 	}
 	
-	public Integer getMain_genere_id() {
-		return main_genere_id;
+	public Integer getMain_genre_id() {
+		return main_genre_id;
 	}
 
 
-	public void setMain_genere_id(Integer main_genere_id) {
-		this.main_genere_id = main_genere_id;
+	public void setMain_genere_id(Integer main_genre_id) {
+		this.main_genre_id = main_genre_id;
 	}
 
 
@@ -118,6 +139,70 @@ public class Books {
 	public void setShelfId(Integer shelfId) {
 		this.shelfId = shelfId;
 	}
+	
+
+
+	public Integer getPublication_year() {
+		return publication_year;
+	}
+
+
+
+
+	public void setPublication_year(Integer publication_year) {
+		this.publication_year = publication_year;
+	}
+
+
+
+
+	public Integer getPrice() {
+		return price;
+	}
+
+
+
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+
+
+
+	public Integer getPopularity() {
+		return popularity;
+	}
+
+
+
+
+	public void setPopularity(Integer popularity) {
+		this.popularity = popularity;
+	}
+
+
+
+
+	public Integer getAvailable_copies() {
+		return available_copies;
+	}
+
+
+
+
+	public void setAvailable_copies(Integer available_copies) {
+		this.available_copies = available_copies;
+	}
+
+
+
+
+	public void setMain_genre_id(Integer main_genre_id) {
+		this.main_genre_id = main_genre_id;
+	}
+
+
 
 
 	public void borrowBook() {
