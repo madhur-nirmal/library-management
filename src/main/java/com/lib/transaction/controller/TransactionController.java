@@ -1,65 +1,52 @@
 package com.lib.transaction.controller;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lib.transaction.entity.Transaction;
-import com.lib.transaction.repository.TransactionRepository;
+import com.lib.transaction.service.TransactionService;
 
 @RestController
+@RequestMapping("/transaction")
 public class TransactionController {
 
-	
 	@Autowired
-	TransactionRepository transactionRepository;
+	private TransactionService transactionService;
 	
-	@GetMapping (path="/transaction/get/{id}")
-	public Transaction getTransaction(@PathVariable int id) {
-		Optional<Transaction> opObj= transactionRepository.findById(id);
-		
-		return opObj.get();
+	@GetMapping (path="/get/{id}")
+	public ResponseEntity<Transaction> getTransaction(@PathVariable int id) {
+		try {
+			return ResponseEntity.ok(transactionService.getTransaction(id));
+		}catch(RuntimeException e) {
+			throw new RuntimeException("Error getting transaction info");
+		}
 	}
 	
-//	@GetMapping (path="/transaction/get")
-//	public List<Transaction> getAllTransaction() {
-//		List<Transaction> trnLst=transactionRepository.findAll();
-//		
-//		return trnLst;
-//	}
-	
-	
-	@PostMapping(path="/transaction/assignBook")
-	public String assignBook(@RequestBody Transaction trnObj) {
-			
-		System.out.println("Received data:" +trnObj);
-		
-		transactionRepository.save(trnObj);
-		
-		return "Record inserted Successfully";
-	}
-	
-	@PutMapping (path="/transaction/complete/{id}")
-	public String completeTransaction(@PathVariable int id) {
-		Optional<Transaction> opObj= transactionRepository.findById(id);
-		if (opObj.isPresent()) {
-			Transaction trn=opObj.get();
-			trn.setReturn_status(true);
-			transactionRepository.save(trn);
-
-			return "Book has been returned";
+	@PostMapping(path="/assignBook")
+	public ResponseEntity<String> assignBook(@RequestBody Transaction trnObj) {
+		try {
+			transactionService.assignBook(trnObj);
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		
-		return "unable to change transaction status";
-		
+		return ResponseEntity.ok("Book assignment successful!");
 	}
 	
-	
+	@PutMapping (path="/complete/{id}")
+	public ResponseEntity<String> completeTransaction(@PathVariable int id) {
+		try {
+			transactionService.completeTransaction(id);
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok("Book has been returned.");
+	}
 }

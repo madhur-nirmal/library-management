@@ -1,9 +1,7 @@
 package com.lib.transaction.entity;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -35,25 +33,18 @@ public class Transaction {
 	
 	Transaction(){}
 
-	public Transaction(int id, int book_id, int user_id, int amount, int librarian_id) 
+	public Transaction(int id,int book_id, int user_id, int amount, int librarian_id) 
 	{
 		super();
-		this.id = id;
+		this.id=id;
 		this.book_id = book_id;
 		this.user_id = user_id;
-		
-		//Date date1= new Date();
-		//SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yy");
-		//String curr_date=formatter.format(date1);
-		
-		
-		
-		//this.date = myDate.toString();
 		this.amount = amount;
 		this.return_status = false;
 		this.librarian_id = librarian_id;
 	}
-
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -110,9 +101,5 @@ public class Transaction {
 
 	public void setLibrarian_id(int librarian_id) {
 		this.librarian_id = librarian_id;
-	}
-	
-	
-	
-	
+	}	
 }
